@@ -14,11 +14,11 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setId(1L);
-            member.setName("hello");
+            Member member = em.find(Member.class, 1L);
+            member.setName("hello222");
 
-            em.persist(member);
+            em.detach(member);
+            System.out.println("=========");
             tx.commit();
         } catch (Exception exception) {
             tx.rollback();
