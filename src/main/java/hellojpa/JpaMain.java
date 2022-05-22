@@ -22,21 +22,13 @@ public class JpaMain {
             em.persist(member2);
             em.flush();
             em.clear();
-
-            Member m1 = em.find(Member.class, member1.getId());
-            Member m2 = em.find(Member.class, member2.getId());
-            System.out.println(m1.getClass());
-            System.out.println(m2.getClass());
-            System.out.println(m1.getClass() == m2.getClass());
             System.out.println("=========");
-            em.clear();
-            Member proxyM1 = em.getReference(Member.class, member1.getId());
-            Member proxyM2 = em.getReference(Member.class, member2.getId());
-            System.out.println(proxyM1.getClass());
-            System.out.println(proxyM2.getClass());
-            System.out.println(proxyM1.getClass() == proxyM2.getClass());
-            System.out.println(proxyM1 instanceof Member);
-            System.out.println(proxyM2 instanceof Member);
+            Member refMember = em.getReference(Member.class, member1.getId());
+            System.out.println("refMember : " + refMember.getClass());
+            Member findMember = em.getReference(Member.class, member1.getId());
+            System.out.println("findMember : " + findMember.getClass());
+            System.out.println(refMember == findMember);
+
             tx.commit();
         } catch (Exception exception) {
             tx.rollback();
